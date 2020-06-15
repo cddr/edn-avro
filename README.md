@@ -1,26 +1,38 @@
 # edn-avro
 
-FIXME: my new library.
+In jackdaw, we made the mistake of getting into the business of
+maintaining a custom mapping between EDN and Avro. The consequence
+of this leads in turn to a requirement to maintain custom
+KafkaAvroSerializers and KafkaAvroDeserializers (when using
+Kafka Consumers and Producers respectively), and also custom Serdes
+(when using the Streams API).
+
+All this could have been avoided if we just had a simple way to go
+from EDN -> GenericRecord and back. Then we could just use the
+standard implementations of these utilities.
 
 ## Usage
 
-FIXME: write usage documentation!
+```
+(ns my.cool.app
+  (:require
+	  [cddr.edn-avro :as avro]))
 
-Build a deployable jar of this library:
+(def schema "string")
+(def msg "yolo")
 
-    $ clojure -A:jar
+(def msg-as-avro (avro/as-avro msg {:schema schema}))
 
-Install it locally:
+(def msg-as-edn (avro/as-edn msg-as-avro {:schema schema}))
 
-    $ clojure -A:install
+msg-as-edn
+=> "yolo"
 
-Deploy it to Clojars -- needs `CLOJARS_USERNAME` and `CLOJARS_PASSWORD` environment variables:
-
-    $ clojure -A:deploy
+```
 
 ## License
 
-Copyright © 2020 Andy
+Copyright © 2020 Andy Chambers
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.

@@ -4,10 +4,10 @@ Lossless conversion between EDN and Avro (and back)
 
 ## Rationale
 
-In jackdaw, we made the mistake of getting into the business of
-maintaining a custom mapping between EDN and Avro. This meant we
-ended up duplicating a lot of code in order to marshall data
-from one format into another
+In [jackdaw](https://github.com/fundingcircle/jackdaw), we made the
+mistake of getting into the business of maintaining a custom mapping
+between EDN and Avro. This meant we ended up duplicating a lot of code
+in order to marshall data from one format into another
 
 https://github.com/FundingCircle/jackdaw/blob/master/src/jackdaw/serdes/avro.clj
 

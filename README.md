@@ -8,7 +8,7 @@ Kafka Consumers and Producers respectively), and also custom Serdes
 (when using the Streams API).
 
 All this could have been avoided if we just had a simple way to go
-from EDN -> GenericRecord and back. Then we could just use the
+from EDN -> GenericData and back. Then we could just use the
 standard implementations of these utilities.
 
 ## Usage

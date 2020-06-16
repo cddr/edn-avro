@@ -2,7 +2,7 @@
   (:require
    [clojure.data.json :as json])
   (:import
-   (java.io ByteArrayInputStream DataInputStream)
+   (java.io ByteArrayInputStream ByteArrayOutputStream DataInputStream)
    (org.apache.avro Schema$Parser)
    (org.apache.avro.generic GenericDatumWriter GenericDatumReader)
    (org.apache.avro.io
@@ -27,16 +27,20 @@
 
 (defn as-edn
   "Converts a `GenericDatum` into EDN using a JsonEncoder"
-  [avro {:keys [schema]}]
-  (let [output (ByteArrayOutputStream.)
-        writer (GenericDatumWriter. schema)
-        encoder (.jsonEncoder (EncoderFactory/get) schema output)]
+  ([avro]
+   (as-edn avro {}))
+  ([avro {:keys [schema]}]
+   (let [schema (or schema
+                    (.getSchema avro))
+         output (ByteArrayOutputStream.)
+         writer (GenericDatumWriter. schema)
+         encoder (.jsonEncoder (EncoderFactory/get) schema output)]
 
-    (.write writer avro encoder)
-    (.flush encoder)
-    (.flush output)
+     (.write writer avro encoder)
+     (.flush encoder)
+     (.flush output)
 
-    (json/read-str (String. (.toByteArray output)))))
+     (json/read-str (String. (.toByteArray output))))))
 
 
 (comment
@@ -45,5 +49,5 @@
                         :fields [{:name "yolo"
                                   :type ["string" "null"]}]})]
     (-> (as-avro {:yolo {:string "yolo"}} {:schema s})
-        (as-edn {:schema s})))
+        (as-edn)))
   )

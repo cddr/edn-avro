@@ -14,9 +14,11 @@
                  :sha "f7ef16dc3b8332b0d77bc0274578ad5270fbfedd"}}
    :main-opts ["-m" "cognitect.test-runner"
                "-d" "test"]}
-  :jar {:extra-deps {seancorfield/depstar {:mvn/version "0.5.2"}}
-        :main-opts ["-m" "hf.depstar.jar" "edn-avro.jar"]}
-  :install {:extra-deps {deps-deploy {:mvn/version "0.0.9"}}
+  :depstar {:replace-deps
+            {seancorfield/depstar {:mvn/version "2.0.165"}}
+            :ns-default hf.depstar
+            :exec-args {}}
+  :install {:extra-deps {slipset/deps-deploy {:mvn/version "0.1.1"}}
             :main-opts ["-m" "deps-deploy.deps-deploy" "install" "edn-avro.jar"]}
-  :deploy {:extra-deps {deps-deploy {:mvn/version "0.0.9"}}
+  :deploy {:extra-deps {slipset/deps-deploy {:mvn/version "0.1.1"}}
            :main-opts ["-m" "deps-deploy.deps-deploy" "deploy" "edn-avro.jar"]}}}

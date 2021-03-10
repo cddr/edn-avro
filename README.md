@@ -22,10 +22,11 @@ I'm aware of at least two problems with this approach.
 
  2. The EDN representation we chose is "lossy" compared with the standard
     JSON representation. When an avro union type is used, the JSON respresentation
-		includes a tag to indicate which "branch" of the union is matched. In our
-		custom EDN representation, no such tag is included. You just get the data
-		and the consuming code must figure out itself which branch of the schema
-		was matched.
+    includes a tag to indicate which "branch" of the union is matched. In our
+    custom EDN representation, no such tag is included. You just get the data
+    and the consuming code must figure out itself which branch of the schema
+    was matched. This might be not be a problem for you if your only use of
+    unions is to provide optionality to your fields.
 
 This library aims to resolve these problems by creating a simple
 utility to convert an EDN object into a avro GenericData instance

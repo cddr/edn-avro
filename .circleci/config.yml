@@ -47,7 +47,7 @@ jobs:
       - run: rm -rf ~/.gitconfig
 
       # run tests!
-      - run: clojure -M:test:runner --reporter kaocha.report/documentation
+      - run: bin/kaocha
 
       - store_test_results:
           path: test-results

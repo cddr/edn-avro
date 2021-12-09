@@ -1,5 +1,6 @@
 # edn-avro
 
+[![CircleCI](https://circleci.com/gh/cddr/edn-avro.svg?style=svg)](https://circleci.com/gh/cddr/edn-avro) |
 [![Current Release](https://img.shields.io/clojars/v/cddr/edn-avro.svg)](https://clojars.org/cddr/edn-avro)
 
 Lossless conversion between EDN and Avro (and back)

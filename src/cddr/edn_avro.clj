@@ -1,6 +1,6 @@
 (ns cddr.edn-avro
   (:require
-   [clojure.data.json :as json])
+   [jsonista.core :as json])
   (:import
    (java.io ByteArrayInputStream ByteArrayOutputStream DataInputStream)
    (org.apache.avro Schema$Parser)
@@ -12,12 +12,12 @@
   "Parses an avro schema (expressed as edn data)"
   [schema]
   (let [parser (Schema$Parser.)]
-    (.parse parser (json/write-str schema))))
+    (.parse parser (json/write-value-as-string schema))))
 
 (defn as-avro
   "Converts EDN into a `GenericDatum` using a JSONDecoder"
   [object {:keys [schema]}]
-  (let [input (ByteArrayInputStream. (-> (json/write-str object)
+  (let [input (ByteArrayInputStream. (-> (json/write-value-as-string object)
                                          (.getBytes)))
         din (DataInputStream. input)]
 
@@ -29,7 +29,8 @@
   "Converts a `GenericDatum` into EDN using a JsonEncoder"
   ([avro]
    (as-edn avro nil))
-  ([avro schema]
+  ([avro {:keys [schema mapper]
+          :or {mapper json/keyword-keys-object-mapper}}]
    (let [write-schema (.getSchema avro)
          read-schema schema]
 
@@ -56,7 +57,8 @@
            (as-edn (.read reader nil decoder)))
          ;; if we're not using a custom read-schema, we can just
          ;; parse the encoded json
-         (json/read-str (String. (.toByteArray output))))))))
+         (json/read-value (String. (.toByteArray output))
+                          mapper))))))
 
 (comment
   ;; roundtrip a record (optionally using a custom reader schema)

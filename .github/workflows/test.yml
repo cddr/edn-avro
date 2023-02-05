@@ -1,7 +1,5 @@
 name: Tests
 
-runs-on: self-hosted
-
 on:
   pull_request:
   push:
@@ -14,7 +12,7 @@ on:
 jobs:
 
   unit:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v1
       - name: Install clojure tools

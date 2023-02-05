@@ -2,6 +2,7 @@
  :mvn/repos {"confluent" {:url "https://packages.confluent.io/maven/"}}
  :deps {org.clojure/clojure {:mvn/version "1.10.1"}
         org.apache.avro/avro {:mvn/version "1.9.2"}
+        com.damballa/abracad {:mvn/version "0.4.13"}
         metosin/jsonista {:mvn/version "0.3.5"}}
  :aliases
  {:test {:extra-deps {lambdaisland/kaocha {:mvn/version "1.60.945"}

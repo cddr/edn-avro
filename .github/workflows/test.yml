@@ -1,0 +1,22 @@
+name: Tests
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.clj'
+      - '**.edn'
+
+jobs:
+
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install clojure tools
+        uses: DeLaGuardo/setup-clojure@10.1
+        with:
+          cli: 1.10.3.1087
+      - name: Unit Tests
+        run: bin/kaocha

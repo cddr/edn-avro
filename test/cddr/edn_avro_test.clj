@@ -65,3 +65,54 @@
           as-avro (ea/as-avro test-msg {:schema schema})
           as-edn (ea/as-edn as-avro {:schema schema})]
       (is (= test-msg as-edn)))))
+
+
+(deftest test-various-types
+  (let [schema (ea/avro-schema {:type "record"
+                                :name "Foo"
+                                :fields [
+                                         {:name "aNull"
+                                          :type "null"}
+
+                                         {:name "aBool"
+                                          :type "boolean"}
+
+                                         {:name "aInt" :type "int"}
+                                         {:name "aLong" :type "long"}
+                                         {:name "aFloat" :type "float"}
+                                         {:name "aDouble" :type "double"}
+                                         {:name "aBytes" :type "bytes"}
+                                         {:name "aString" :type "string"}
+
+                                         ]})
+        mock-reg (MockSchemaRegistryClient.)
+        serializer (KafkaAvroSerializer. mock-reg {"schema.registry.url" "test.reg"})
+        deserializer (KafkaAvroDeserializer. mock-reg {"schema.registry.url" "test.reg"})]
+
+
+    (let [test-msg {:aNull nil
+                    :aBool true
+                    :aInt 42
+                    :aLong 2147483647
+                    :aFloat 3.234
+                    :aDouble 1.0000000000000002
+                    :aBytes (.getBytes "yolo")
+                    :aString "yolo"}
+          as-avro (ea/as-avro test-msg {:schema schema})]
+
+      (is (instance? GenericData$Record as-avro))
+
+      (let [as-edn (ea/as-edn as-avro {:schema schema})]
+
+        (is (= (:aNull as-edn) nil))
+        (is (= (:aBool as-edn) true))
+        (is (= (:aLong as-edn) 2147483647))
+        (is (= (:aFloat as-edn) 3.234))
+        (is (= (:aDouble as-edn) 1.0000000000000002))
+        (is (= (:aString as-edn) "yolo"))
+
+        ;; ideally as-edn would be able to translate this back to a byte-array
+        ;; but would need to teach it to post-process the result of converting
+        ;; the avro to the JSON representation and then walk the avro schema
+        ;; looking for bytes fields to translate
+        (is (= (:aBytes as-edn) "eW9sbw=="))))))

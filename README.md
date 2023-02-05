@@ -1,9 +1,9 @@
 # edn-avro
 
-[![CircleCI](https://circleci.com/gh/cddr/edn-avro.svg?style=svg)](https://circleci.com/gh/cddr/edn-avro) |
+[![Tests](https://github.com/cddr/edn-avro/actions/workflows/test.yml/badge.svg) |
 [![Current Release](https://img.shields.io/clojars/v/cddr/edn-avro.svg)](https://clojars.org/cddr/edn-avro)
 
-Lossless conversion between EDN and Avro (and back)
+Conversion between EDN and Avro GenericDatums (and back)
 
 ## Rationale
 

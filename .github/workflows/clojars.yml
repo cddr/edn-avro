@@ -37,7 +37,7 @@ jobs:
 
       - name: Publish to Apache Maven Central
         run: bin/mvn-deploy
-          env:
-            CLOJARS_USERNAME: cddr
-            CLOJARS_PASSWORD: ${{ secrets.CLOJARS_PASSWORD }}
-            GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        env:
+          CLOJARS_USERNAME: cddr
+          CLOJARS_PASSWORD: ${{ secrets.CLOJARS_PASSWORD }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}

@@ -3,7 +3,7 @@ name: Publish to Clojars
 on:
   push:
     tags:
-			v.*
+      v.*
 
 jobs:
 

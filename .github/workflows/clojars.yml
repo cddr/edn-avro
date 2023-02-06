@@ -11,9 +11,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Install clojure tools
-        uses: DeLaGuardo/setup-clojure@10.1
+
+      - name: Prepare java
+        uses: actions/setup-java@v3
         with:
-          cli: 1.10.3.1087
-      - name: Unit Tests
-        run: clj -X:deploy
+          distribution: 'zulu'
+          java-version: '8'
+          check-latest: false
+
+      - name: Publish to GitHub Packages Apache Maven
+        run: mvn deploy
+        env:
+          GITHUB_TOKEN: ${{ github.token }} # GITHUB_TOKEN is the default env for the password
+
+      - name: Set up Apache Maven Central
+        uses: actions/setup-java@v3
+        with: # running setup-java again overwrites the settings.xml
+          distribution: 'temurin'
+          java-version: '11'
+          server-id: clojars # Value of the distributionManagement/repository/id field of the pom.xml
+          server-username: CLOJARS_USERNAME # env variable for username in deploy
+          server-password: CLOJARS_PASSWORD # env variable for token in deploy
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }} # Value of the GPG private key to import
+          gpg-passphrase: GPG_PASSPHRASE # env variable for GPG private key passphrase
+
+      - name: Publish to Apache Maven Central
+        run: bin/mvn-deploy
+          env:
+            CLOJARS_USERNAME: cddr
+            CLOJARS_PASSWORD: ${{ secrets.CLOJARS_PASSWORD }}
+            GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}

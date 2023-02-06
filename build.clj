@@ -4,7 +4,6 @@
    [clojure.tools.build.api :as b]
    [deps-deploy.deps-deploy :as dd]))
 
-
 (def version
   (let [git-tag (b/git-process {:git-args "describe --tags --abbrev=0"})
         git-describe (b/git-process {:git-args "describe"})]

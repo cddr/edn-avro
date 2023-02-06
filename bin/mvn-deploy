@@ -1,0 +1,8 @@
+#!/bin/sh
+
+mvn deploy:deploy-file \
+		-Dfile=target/edn-avro-$(git describe).jar \
+		-DrepositoryId=clojars \
+		-Durl=https://clojars.org/repo/ \
+	  -DpomFile=target/classes/META-INF/maven/cddr/edn-avro/pom.xml \
+		-Dgpg.passphrase=$GPG_PASSPHRASE

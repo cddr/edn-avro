@@ -54,7 +54,6 @@ instance before sending it to a kafka producer or returning it in a kafka stream
 @(.send p (as-avro {:aString "test-1"
                     :aUnion nil}
                    {:schema schema}))
-
 ```
 
 ## License

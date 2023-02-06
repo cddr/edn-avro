@@ -69,5 +69,7 @@
         avit (as-avro "yolo" {:schema s1})]
     avit)
     ;; (-> avit
-    ;;     (as-edn)))
+  ;;     (as-
+  (prn :fini)
+
   )

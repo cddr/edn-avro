@@ -19,12 +19,7 @@ jobs:
           java-version: '8'
           check-latest: false
 
-      - name: Publish to GitHub Packages Apache Maven
-        run: mvn deploy
-        env:
-          GITHUB_TOKEN: ${{ github.token }} # GITHUB_TOKEN is the default env for the password
-
-      - name: Set up Apache Maven Central
+      - name: Configure Maven
         uses: actions/setup-java@v3
         with: # running setup-java again overwrites the settings.xml
           distribution: 'temurin'
@@ -35,7 +30,7 @@ jobs:
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }} # Value of the GPG private key to import
           gpg-passphrase: GPG_PASSPHRASE # env variable for GPG private key passphrase
 
-      - name: Publish to Apache Maven Central
+      - name: Publish to Clojars
         run: bin/mvn-deploy
         env:
           CLOJARS_USERNAME: cddr

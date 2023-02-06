@@ -8,11 +8,11 @@
  {:test {:extra-deps {lambdaisland/kaocha {:mvn/version "1.60.945"}
                       io.confluent/kafka-avro-serializer {:mvn/version "5.2.1"}
                       io.confluent/kafka-schema-registry {:mvn/version "5.2.1"}}}
-  :depstar {:replace-deps
-            {seancorfield/depstar {:mvn/version "2.0.165"}}
-            :ns-default hf.depstar
-            :exec-args {}}
-  :install {:extra-deps {slipset/deps-deploy {:mvn/version "0.1.1"}}
+  :install {:extra-deps {slipset/deps-deploy {:mvn/version "0.2.0"}}
             :main-opts ["-m" "deps-deploy.deps-deploy" "install" "edn-avro.jar"]}
-  :deploy {:extra-deps {slipset/deps-deploy {:mvn/version "0.1.1"}}
-           :main-opts ["-m" "deps-deploy.deps-deploy" "deploy" "edn-avro.jar"]}}}
+
+  :deploy {:extra-deps {slipset/deps-deploy {:mvn/version "0.2.0"}}
+           :main-opts ["-m" "deps-deploy.deps-deploy" "deploy" "edn-avro.jar"]
+           :installer :remote
+           :sign-releases? true
+           :artifact "deps-deploy.jar"}}}

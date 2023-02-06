@@ -1,18 +1,14 @@
-name: Tests
+name: Publish to Clojars
 
 on:
-  pull_request:
   push:
-    branches:
-      - main
-    paths:
-      - '**.clj'
-      - '**.edn'
+    tags:
+			v.*
 
 jobs:
 
   unit:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - name: Install clojure tools
@@ -20,4 +16,4 @@ jobs:
         with:
           cli: 1.10.3.1087
       - name: Unit Tests
-        run: bin/kaocha
+        run: clj -X:deploy

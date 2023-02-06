@@ -1,6 +1,6 @@
 # edn-avro
 
-[![Tests](https://github.com/cddr/edn-avro/actions/workflows/test.yml/badge.svg) |
+[![Tests](https://github.com/cddr/edn-avro/actions/workflows/kaocha.yml/badge.svg) |
 [![Current Release](https://img.shields.io/clojars/v/cddr/edn-avro.svg)](https://clojars.org/cddr/edn-avro)
 
 Conversion between EDN and Avro GenericDatums (and back)

@@ -9,3 +9,5 @@
 /.nrepl-port
 .hgignore
 .hg/
+full-matrix-results.log
+test-results/

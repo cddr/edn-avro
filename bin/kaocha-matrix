@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# Compatible Confluent + Avro version combinations
+# Based on empirical testing - some combinations have JVM-level incompatibilities
+# (e.g., Jackson API changes in Avro, or missing classes between versions)
+declare -a COMBOS=(
+    "v5:avro-1.9"
+    "v5:avro-1.10"
+    "v5:avro-1.11"
+    "v6:avro-1.10"
+    "v6:avro-1.11"
+    "v6:avro-1.12"
+    "v7:avro-1.10"
+    "v7:avro-1.11"
+    "v7:avro-1.12"
+    "v8:avro-1.12"
+)
+
+LOG_DIR="./test-results"
+FINAL_REPORT="full-matrix-results.log"
+
+mkdir -p "$LOG_DIR"
+echo "EDN-AVRO COMPATIBLE VERSION MATRIX - $(date)" > "$FINAL_REPORT"
+echo "Testing $(( ${#COMBOS[@]} )) known compatible combinations" >> "$FINAL_REPORT"
+echo "" >> "$FINAL_REPORT"
+
+run_combo() {
+    local combo=$1
+    local c_ver="${combo%%:*}"
+    local a_ver="${combo##*:}"
+    local combo_name="${c_ver}_${a_ver}"
+    local log_file="$LOG_DIR/${combo_name}.log"
+
+    # We combine both aliases in the -A flag
+    ./bin/kaocha -A:$c_ver:$a_ver > "$log_file" 2>&1
+
+    if [ $? -eq 0 ]; then
+        printf "%-25s [PASS]\n" "$combo_name"
+        echo "$combo_name: PASS" >> "$FINAL_REPORT"
+    else
+        printf "%-25s [FAIL]\n" "$combo_name"
+        echo "$combo_name: FAIL (see $log_file)" >> "$FINAL_REPORT"
+    fi
+}
+
+echo "Starting Compatible Version Matrix (Concurrent)..."
+for combo in "${COMBOS[@]}"; do
+    run_combo "$combo" &
+done
+
+wait
+echo ""
+echo "Matrix Complete. Check $FINAL_REPORT for a summary."

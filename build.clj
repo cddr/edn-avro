@@ -36,7 +36,7 @@
 (defn deploy [_]
   (dd/deploy {:installer :remote
               :sign-releases? true
-              :sign-key-id "6BC21F24EC17A8A5BD712E2015C5A307C7C2315D"
+              :sign-key-id "DBE58F103C03B26E848ED2272C0EE5D7989BE7CF"
               :pom-file (b/pom-path {:lib lib
                                      :class-dir "target/classes"})
               :artifact "edn-avro.jar"}))

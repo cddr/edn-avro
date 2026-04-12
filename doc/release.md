@@ -2,6 +2,7 @@
 
 * [ ] All tests pass: `bin/kaocha-matrix`
 * [ ] The working directory is clean: `git status` should show no uncommitted changes.
+* [ ] bin/history.sh should show no unrelased changes.
 * [ ] You have a Clojars [Deploy Token](https://clojars.org/tokens) set in your environment as `CLOJARS_PASSWORD`.
 
 ## 1. Create an Annotated Tag
@@ -15,6 +16,9 @@ git tag -a v1.0.x -m "Brief summary of changes and spec updates"
 
 ```bash
 git push origin vx.y.z
+
+# or push all tags
+git push origin --tags
 ```
 
 ## 4. Deploy to Clojars

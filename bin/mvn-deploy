@@ -1,8 +1,0 @@
-#!/bin/sh
-
-mvn deploy:deploy-file \
-  -Dfile=target/edn-avro-$(clj -T:build print-version).jar \
-	-DrepositoryId=clojars \
-	-Durl=https://clojars.org/repo/ \
-	-DpomFile=target/classes/META-INF/maven/cddr/edn-avro/pom.xml \
-	-Dgpg.passphrase=$GPG_PASSPHRASE

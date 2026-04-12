@@ -9,22 +9,6 @@
                       io.confluent/kafka-avro-serializer {:mvn/version "8.2.0"}
                       io.confluent/kafka-schema-registry {:mvn/version "8.2.0"}}}
 
-  :build {:deps {io.github.clojure/tools.build {:git/tag "v0.9.3" :git/sha "e537cd1"}
-                 slipset/deps-deploy {:mvn/version "0.2.0"}}
-          :ns-default build}
-
-  :install {:extra-deps {slipset/deps-deploy {:mvn/version "0.2.0"}}
-            :main-opts ["-m" "deps-deploy.deps-deploy" "install" "edn-avro.jar"]}
-
-  :deploy {:extra-deps {}
-           :exec-fn deps-deploy.deps-deploy/deploy
-           :exec-args {:installer :remote
-                       ;; TODO:
-                       ;;
-                       ;; I would like to sign releases because why not? But
-                       ;; deps-deploy at the moment does not yet support
-                       ;; prompt-less password provision.
-                       ;;
-                       ;; :sign-releases? true
-                       ;; :sign-key-id "C1CEE919CCBC3B60B712A1181EC3EBFBDC3C3436"
-                       :artifact "edn-avro.jar"}}}}
+  :build {:deps {io.github.clojure/tools.build {:git/tag "v0.10.13" :git/sha "ae52edf"}
+                 slipset/deps-deploy {:mvn/version "0.2.3"}}
+          :ns-default build}}}

@@ -11,3 +11,4 @@
 .hg/
 full-matrix-results.log
 test-results/
+.mise.local.toml

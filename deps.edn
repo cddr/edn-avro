@@ -1,13 +1,13 @@
 {:paths ["src" "resources"]
- :mvn/repos {"confluent" {:url "https://packages.confluent.io/maven/"}}
+ :mvn/repos {"confluent" {:url "https://packages.confluent.io/maven/"}
+             "jitpack"   {:url "https://jitpack.io"}}
  :deps {org.clojure/clojure {:mvn/version "1.10.1"}
-        org.apache.avro/avro {:mvn/version "1.9.2"}
-        com.damballa/abracad {:mvn/version "0.4.13"}
+        org.apache.avro/avro {:mvn/version "1.12.1"}
         metosin/jsonista {:mvn/version "0.3.5"}}
  :aliases
  {:test {:extra-deps {lambdaisland/kaocha {:mvn/version "1.60.945"}
-                      io.confluent/kafka-avro-serializer {:mvn/version "5.2.1"}
-                      io.confluent/kafka-schema-registry {:mvn/version "5.2.1"}}}
+                      io.confluent/kafka-avro-serializer {:mvn/version "8.2.0"}
+                      io.confluent/kafka-schema-registry {:mvn/version "8.2.0"}}}
 
   :build {:deps {io.github.clojure/tools.build {:git/tag "v0.9.3" :git/sha "e537cd1"}
                  slipset/deps-deploy {:mvn/version "0.2.0"}}

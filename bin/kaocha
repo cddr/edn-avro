@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-clojure -M:test -m kaocha.runner "$@"
+clojure -Sdeps "$(cat versions.edn)" "$@" -M:test -m kaocha.runner

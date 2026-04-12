@@ -19,4 +19,4 @@ jobs:
         with:
           cli: 1.10.3.1087
       - name: Unit Tests
-        run: bin/kaocha
+        run: bin/kaocha-matrix

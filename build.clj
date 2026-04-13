@@ -12,10 +12,13 @@
         is-snapshot? (not= tag full-desc)]
     (str tag (when is-snapshot? "-SNAPSHOT"))))
 
+(def target-dir "target")
 (def lib 'cddr/edn-avro)
 (def class-dir "target/classes")
 (def basis (b/create-basis {:project "deps.edn"}))
-(def jar-file (format "target/%s-%s.jar" (name lib) version))
+(def jar-file (format "%s/%s-%s.jar"
+                      target-dir
+                      (name lib) version))
 
 (defn clean [_]
   (b/delete {:path "target"}))
@@ -42,6 +45,7 @@
                              [:name "Eclipse Public License 1.0"]
                              [:url "https://opensource.org/license/epl-1-0/"]
                              [:distribution "repo"]]]]
+                :target target-dir
                 :src-dirs ["src"]})
   (println "✓ Generated pom.xml")
   (b/copy-dir {:src-dirs ["src" "resources"]
@@ -65,6 +69,7 @@
                   :sign-releases? true
                   :sign-key-id "DBE58F103C03B26E848ED2272C0EE5D7989BE7CF"
                   :pom-file (b/pom-path {:lib lib
+                                         :target target-dir
                                          :class-dir "target/classes"})
                   :artifact jar-file})
       (println "✅ Deployment complete!"))))

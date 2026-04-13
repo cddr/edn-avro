@@ -17,7 +17,7 @@ declare -a COMBOS=(
 )
 
 LOG_DIR="./test-results"
-FINAL_REPORT="full-matrix-results.log"
+FINAL_REPORT="./test-results/full-matrix-results.log"
 
 mkdir -p "$LOG_DIR"
 echo "EDN-AVRO COMPATIBLE VERSION MATRIX - $(date)" > "$FINAL_REPORT"
@@ -43,7 +43,7 @@ run_combo() {
     fi
 }
 
-echo "Starting Compatible Version Matrix (Concurrent)..."
+echo "Starting Compatible Version Matrix"
 for combo in "${COMBOS[@]}"; do
     run_combo "$combo" &
 done
